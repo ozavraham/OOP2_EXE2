@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		int choise;
 		boolean isValidInput = false;
 		boolean isDone = false;
 		Scanner read = new Scanner(System.in);
@@ -15,32 +14,40 @@ public class Main {
 		System.out.println("1. Integer array");
 		System.out.println("2. String array");
 		System.out.println("-1 to Exit.");
-		while (!isValidInput && !isDone) {
-			choise = read.nextInt();
+		do {
+			int choise = read.nextInt();
 			if (choise==1) {
 				int size = getSize();
 				Integer[] array = new Integer[size+1];
+				System.out.println("You have chosen Integer!");
 				for (int i=1 ; i<=size ; i++) {
 					System.out.printf("Please enter value for place number %d: ", i);
 					array[i] = read.nextInt();
 				}
 				System.out.println("Your input:");
 				printArr(array);
-				sort(array);
-				isDone=false;
+				if (confirmInput()) {
+					sort(array);
+					isDone=false;
+					System.out.println("Choose again from the previous menu:");	
+				}
+				else isDone=false;
 			}
 
 			else if (choise==2) {
 				int size = getSize();
 				String[] array = new String[size+1];
-				for (int i=1 ; i<size ; i++) {
+				System.out.println("You have chosen String!");
+				for (int i=1 ; i<=size ; i++) {
 					System.out.printf("Please enter value for place number %d: ", i);
-					array[i] = read.nextLine();
+					array[i] = read.next();
 				}
 				System.out.println("Your input:");
 				printArr(array);
 				sort(array);
-				isDone=false;
+				isDone=false;				
+				System.out.println("Choose again from the previous menu:");
+
 			}
 			else if (choise==-1) {
 				System.out.println("Exiting... Goodbye.");
@@ -54,10 +61,11 @@ public class Main {
 				System.out.println("2. String array");
 				System.out.println("-1 to Exit.");
 			}
-		}
+		} while (!isValidInput && !isDone);
+		read.close();
 	}
 
-	public static int getSize() {
+	public static int getSize() { //java.util.InputMismatchException
 		Scanner read = new Scanner (System.in);
 		System.out.println("Enter the size of the array you desire:");
 		int size = read.nextInt();
@@ -82,6 +90,27 @@ public class Main {
 		}
 		System.out.print("]");
 		System.out.println();
+	}
+	
+	public static boolean confirmInput() {
+		try {
+			Scanner read = new Scanner(System.in);
+			String input;
+			boolean bool;
+			System.out.println("Should we continue to sort? [Y/N]");
+			input = read.next();
+			input.toLowerCase();
+			if (input.equals("y")) bool = true;
+			else if (input.equals("n")) bool =false;
+			else throw new InputMismatchException ();
+			return bool;
+		}
+		catch (InputMismatchException e) {
+			System.out.println("Invalid Input!");
+			System.out.println("Please try again!");
+			confirmInput();
+		}
+		return true;
 	}
 
 }

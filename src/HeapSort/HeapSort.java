@@ -1,5 +1,4 @@
 package HeapSort;
-import java.util.Arrays;
 
 public class HeapSort {
 
@@ -15,7 +14,9 @@ public class HeapSort {
 	}
 
 	private static <T extends Comparable<T>> void buildHeap(T[] array) {
-		HeapSort.heapSize = array.length-1;
+		// If the array is with length 6 with free space at array[0]
+		// Then the heapSize is -1
+		HeapSort.heapSize = array.length-1; 
 		for (int i=Math.floorDiv(heapSize, 2) ; i>=1 ; i--) {
 			Heapify(array, i);
 		}
