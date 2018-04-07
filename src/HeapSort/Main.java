@@ -15,53 +15,58 @@ public class Main {
 		System.out.println("2. String array");
 		System.out.println("-1 to Exit.");
 		do {
-			int choise = read.nextInt();
-			if (choise==1) {
-				int size = getSize();
-				Integer[] array = new Integer[size+1];
-				System.out.println("You have chosen Integer!");
-				for (int i=1 ; i<=size ; i++) {
-					System.out.printf("Please enter value for place number %d: ", i);
-					array[i] = read.nextInt();
+			try {
+				int choise = read.nextInt();
+				if (choise==1) {
+					int size = getSize();
+					Integer[] array = new Integer[size+1];
+					System.out.println("You have chosen Integer!");
+					for (int i=1 ; i<=size ; i++) {
+						System.out.printf("Please enter value for place number %d: ", i);
+						array[i] = read.nextInt();
+					}
+					System.out.println("Your input:");
+					printArr(array);
+					if (confirmInput()) {
+						sort(array);
+						isDone=false;
+						System.out.println("Choose again from the previous menu:");	
+					}
+					else isDone=false;
 				}
-				System.out.println("Your input:");
-				printArr(array);
-				if (confirmInput()) {
+
+				else if (choise==2) {
+					int size = getSize();
+					String[] array = new String[size+1];
+					System.out.println("You have chosen String!");
+					for (int i=1 ; i<=size ; i++) {
+						System.out.printf("Please enter value for place number %d: ", i);
+						array[i] = read.next();
+					}
+					System.out.println("Your input:");
+					printArr(array);
 					sort(array);
-					isDone=false;
-					System.out.println("Choose again from the previous menu:");	
-				}
-				else isDone=false;
-			}
+					isDone=false;				
+					System.out.println("Choose again from the previous menu:");
 
-			else if (choise==2) {
-				int size = getSize();
-				String[] array = new String[size+1];
-				System.out.println("You have chosen String!");
-				for (int i=1 ; i<=size ; i++) {
-					System.out.printf("Please enter value for place number %d: ", i);
-					array[i] = read.next();
 				}
-				System.out.println("Your input:");
-				printArr(array);
-				sort(array);
-				isDone=false;				
-				System.out.println("Choose again from the previous menu:");
-
+				else if (choise==-1) {
+					System.out.println("Exiting... Goodbye.");
+					isDone=true;
+				}
+				else {
+					isValidInput = false;
+					System.out.println("Invalid input!");
+					System.out.println("Choose again from the following:");
+					System.out.println("1. Integer array");
+					System.out.println("2. String array");
+					System.out.println("-1 to Exit.");
+				}
 			}
-			else if (choise==-1) {
-				System.out.println("Exiting... Goodbye.");
-				isDone=true;
+			catch (InputMismatchException e) {
+				System.out.println("in input exeption");
 			}
-			else {
-				isValidInput = false;
-				System.out.println("Invalid input!");
-				System.out.println("Choose again from the following:");
-				System.out.println("1. Integer array");
-				System.out.println("2. String array");
-				System.out.println("-1 to Exit.");
-			}
-		} while (!isValidInput && !isDone);
+		}while (!isValidInput && !isDone);
 		read.close();
 	}
 
@@ -79,7 +84,7 @@ public class Main {
 		System.out.println("The array after the sort:");
 		printArr(array);
 	}
-	
+
 	public static <T> void printArr(T[] array) {
 		System.out.print("[");
 		for (int i=1 ; i<array.length ; i++) {
@@ -91,7 +96,7 @@ public class Main {
 		System.out.print("]");
 		System.out.println();
 	}
-	
+
 	public static boolean confirmInput() {
 		try {
 			Scanner read = new Scanner(System.in);
