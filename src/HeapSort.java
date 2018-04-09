@@ -1,5 +1,3 @@
-package HeapSort;
-
 public class HeapSort {
 
 	static int heapSize=0;
