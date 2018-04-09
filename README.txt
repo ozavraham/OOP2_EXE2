@@ -14,11 +14,13 @@ HeapSort class "creating" Heap from the givven array, and sorting it according t
 Use our new knowledge in Java programming and implement Generic Heapsort.
 
 // Classes //
-Main, HeapSort
+Main : Running the program, Getting user's input and sending it tot Heapsort.
+HeapSort : Geting the input, impling the Heapsort on the givven array.
 Other files attached: Readme.txt
 
 // Definitions // 
-NEED TO ADD??
+Hapify: Heapify function us used to check who between the two sons of specifc node is larger/smaller then the current node,
+And according to the result swap the correct position, in order to create Min/Max heap.
 
 // Running the program //
 1. Navigate to Start -> run
